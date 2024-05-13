@@ -1,5 +1,5 @@
 # Audio-Visual_Conditioned_Genre_Prediction
-Features can be extracted using the file: [final_feature_extract.py](final_feature_extract.py) 
+Features can be extracted using the file: [final_feature_extract.py](final_feature_extract.py) and [video_feature_extraction.py](video_feature_extraction.py) 
 
 Video Classification models implementation and results: [VideoClassificationModels.py](VideoClassificationModels.py)
 
