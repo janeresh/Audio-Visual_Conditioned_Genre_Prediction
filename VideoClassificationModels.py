@@ -223,17 +223,13 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import joblib
 
-# Flatten the image data for PCA
 X_flatten = X.reshape(X.shape[0], -1)
 
-# Initialize PCA with the desired number of components
 num_components = 1000  # Adjust this as needed
 pca = PCA(n_components=num_components)
 
-# Fit PCA on the training data
 pca.fit(X_flatten)
 
-# Transform the training and testing data using the trained PCA
 X_pca = pca.transform(X_flatten)
 #joblib.dump(pca, '/CS670_Project/pca_model.pkl')
 
@@ -249,18 +245,15 @@ from sklearn.model_selection import train_test_split
 # Split data into train and test sets
 X_train, X_test, y_train, y_test = train_test_split(X_pca, y, test_size=0.2, random_state=42)
 
-# Prepare data loaders
 X_train_tensor = torch.tensor(X_train)  # Features tensor
 y_train_tensor = torch.tensor(y_train)
 train_dataset = TensorDataset(X_train_tensor,y_train_tensor)
 train_loader = DataLoader(train_dataset, batch_size=16, shuffle=True)
 
-# Define model, loss function, and optimizer
 model = LSTMClassifier(input_dim=1000, hidden_dim=128, num_layers=1, output_dim=11)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-# Training loop
 for epoch in range(10):
     model.train()  # Set the model to training mode
     running_loss = 0.0
@@ -283,7 +276,6 @@ for epoch in range(10):
     # Print training statistics for the epoch
     print(f'Epoch [{epoch+1}/{20}], Loss: {loss:.4f}, Accuracy: {epoch_accuracy:.4f}')
 
-# Evaluation
 X_test_tensor = torch.tensor(X_test)  # Features tensor
 y_test_tensor = torch.tensor(y_test)
 test_dataset = TensorDataset(X_test_tensor, y_test_tensor)
@@ -319,7 +311,6 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X_pca, y, test_size=0.2, random_state=42)
 X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.1, random_state=42)
 
-# Prepare data loaders
 X_train_tensor = torch.tensor(X_train)  # Features tensor
 y_train_tensor = torch.tensor(y_train)
 train_dataset = TensorDataset(X_train_tensor,y_train_tensor)
@@ -327,14 +318,12 @@ train_loader = DataLoader(train_dataset, batch_size=16, shuffle=True)
 val_dataset = TensorDataset(torch.tensor(X_val), torch.tensor(y_val))
 val_loader = DataLoader(val_dataset, batch_size=16, shuffle=False)
 
-# Define model, loss function, and optimizer
 import matplotlib.pyplot as plt
 
 model = LSTMClassifier(input_dim=1000, hidden_dim=512, num_layers=1, output_dim=11)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 train_losses,train_acc=[],[]
-# Training loop
 for epoch in range(10):
     model.train()  # Set the model to training mode
     running_loss = 0.0
@@ -351,11 +340,9 @@ for epoch in range(10):
         total_samples += targets.size(0)
         running_loss += loss.item() * inputs.size(0)
 
-    # Calculate average loss and accuracy for the epoch
     epoch_loss = running_loss / len(train_loader.dataset)
     epoch_accuracy = correct_predictions / total_samples
 
-    # Validation loop
     model.eval()  # Set the model to evaluation mode
     val_loss = 0.0
     val_correct_predictions = 0
@@ -368,16 +355,13 @@ for epoch in range(10):
             val_correct_predictions += (val_predicted == val_targets).sum().item()
             val_total_samples += val_targets.size(0)
 
-    # Calculate average validation loss and accuracy
     val_epoch_loss = val_loss / len(val_loader.dataset)
     val_epoch_accuracy = val_correct_predictions / val_total_samples
 
-    # Print training and validation statistics for the epoch
     print(f'Epoch [{epoch+1}/{10}], Train Loss: {epoch_loss:.4f}, Train Acc: {epoch_accuracy:.4f}, Val Loss: {val_epoch_loss:.4f}, Val Acc: {val_epoch_accuracy:.4f}')
     train_losses.append(epoch_loss)
     train_acc.append(epoch_accuracy)
 
-# Plot loss curves
 plt.plot(train_losses, label='Train Loss')
 plt.plot(val_losses, label='Validation Loss')
 plt.xlabel('Epoch')
@@ -386,7 +370,6 @@ plt.title('Training and Validation Loss')
 plt.legend()
 plt.show()
 
-# Evaluation
 X_test_tensor = torch.tensor(X_test)  # Features tensor
 y_test_tensor = torch.tensor(y_test)
 test_dataset = TensorDataset(X_test_tensor, y_test_tensor)
@@ -409,14 +392,6 @@ all_probabilities = torch.tensor(all_probabilities)
 print("Predicted labels for test sequences:", all_predictions)
 print("Class probabilities for test sequences:", all_probabilities)
 
-#torch.save(model.state_dict(), '/CS670_Project/lstm_model_pca.pth')
-
-train_acc
-
-tr=[0.7208654558352546,
- 0.8360474456742857,
- 0.8821995263778336,
- 0.904618337732247,0.90781,0.91005,0.9129,0.9153,0.91997]
 
 plt.plot(train_losses, label='Training Losses')
 plt.xlabel('Epochs')
@@ -485,7 +460,7 @@ plt.ylabel('True labels')
 plt.title('Video Confusion Matrix')
 plt.show()
 
-"""**Neural**"""
+"""**Neural Networks**"""
 
 from sklearn.model_selection import train_test_split
 from sklearn.decomposition import PCA
