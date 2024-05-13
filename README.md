@@ -1,5 +1,6 @@
 # Audio-Visual_Conditioned_Genre_Prediction
 This is CS670 Project repository.
+
 In this project, we propose a novel approach to genre classification in video content by integrating audio and visual analysis techniques. Our aim is to develop a system that can accurately classify video clips based on genre. 
 
 Features can be extracted using the file: [final_feature_extract.py](final_feature_extract.py) and [video_feature_extraction.py](video_feature_extraction.py) 
