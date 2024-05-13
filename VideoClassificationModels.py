@@ -13,14 +13,11 @@ import matplotlib.pyplot as plt
 # Flatten the image data for PCA
 X_flatten = X.reshape(X.shape[0], -1)
 
-# Initialize PCA with the desired number of components
-num_components = 2  # Adjust this as needed
+num_components = 2 
 pca = PCA(n_components=num_components)
 
-# Fit PCA on the training data
 pca.fit(X_flatten)
 
-# Transform the training and testing data using the trained PCA
 X_train_pca = pca.transform(X_flatten)
 
 print(X_train_pca.shape)
@@ -362,11 +359,10 @@ for epoch in range(10):
     train_losses.append(epoch_loss)
     train_acc.append(epoch_accuracy)
 
-plt.plot(train_losses, label='Train Loss')
-plt.plot(val_losses, label='Validation Loss')
+plt.plot(train_acc, label='Train Accuracy')
 plt.xlabel('Epoch')
 plt.ylabel('Loss')
-plt.title('Training and Validation Loss')
+plt.title('Train Accuracy')
 plt.legend()
 plt.show()
 
@@ -432,27 +428,19 @@ with torch.no_grad():
 all_predictions = torch.tensor(all_predictions)
 all_probabilities = torch.tensor(all_probabilities)
 
-y_test, all_predictions
-
 from sklearn.metrics import precision_score,recall_score,f1_score
 precision = precision_score(y_test, all_predictions, average="weighted")
 recall = recall_score(y_test, all_predictions, average="weighted")
 f1 = f1_score(y_test, all_predictions, average="weighted")
-precision,recall,f1
+print(precision,recall,f1)
 
 from sklearn.metrics import confusion_matrix
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Assuming y_true contains the true labels and y_pred contains the predicted labels
-# Replace y_true and y_pred with your actual true and predicted labels
-# Make sure both y_true and y_pred are 1-dimensional arrays/lists of the same length
-
-# Calculate the confusion matrix
 cm = confusion_matrix(y_test, all_predictions)
 
-# Display the confusion matrix
 plt.figure(figsize=(10, 8))
 sns.heatmap(cm, annot=True, fmt='d', cmap='Greens', xticklabels=np.unique(y_test), yticklabels=np.unique(y_test))
 plt.xlabel('Predicted labels')
@@ -467,10 +455,8 @@ from sklearn.decomposition import PCA
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
 
-# Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Perform PCA
 pca = PCA(n_components=1000)
 X_flatten = X_train.reshape(X_train.shape[0], -1)
 pca.fit(X_flatten)
@@ -480,7 +466,6 @@ X_test_pca = pca.transform(X_test.reshape(X_test.shape[0], -1))
 # Split the data into training and validation sets
 X_train, X_val, y_train, y_val = train_test_split(X_train_pca, y_train, test_size=0.2, random_state=42)
 
-# Define a simple feedforward neural network classifier
 model = Sequential([
     Dense(512, activation='relu', input_shape=(X_train_pca.shape[1],)),
     Dropout(0.5),
@@ -489,13 +474,10 @@ model = Sequential([
     Dense(11, activation='softmax')  # 11 is the number of classes
 ])
 
-# Compile the model
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
-# Train the model
 history = model.fit(X_train, y_train, epochs=5, batch_size=32, validation_data=(X_val, y_val))
 
-# Evaluate the model on the test set
 test_loss, test_acc = model.evaluate(X_test_pca, y_test)
 print('Test accuracy:', test_acc)
 
@@ -607,4 +589,9 @@ from sklearn.metrics import accuracy_score
 
 accuracy = accuracy_score(y_test, all_predictions)
 print("Accuracy:", accuracy)
-
+precision = precision_score(y_test,  np.argmax(y_pred_video.numpy(), axis=1), average="weighted")
+recall = recall_score(y_test,  np.argmax(y_pred_video.numpy(), axis=1), average="weighted")
+f1 = f1_score(y_test,  np.argmax(y_pred_video.numpy(), axis=1), average="weighted")
+print("Precision:", precision)
+print("Recall:", recall)
+print("F1:", f1)
