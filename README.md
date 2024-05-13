@@ -11,4 +11,4 @@ Audio Classification models implementation and results: [cnnaudio.py](cnnaudio.p
 
 Fusion models implementation and results: [fusion_model.py](fusion_model.py)
 
-To demonstrate the model's capabilities, we can execute a demo using [file](CS670_test.py)
+To demonstrate the model's capabilities, we can execute a demo using [file](CS670_test.ipynb)
