@@ -85,20 +85,7 @@ def prepare_datasets(test_size, validation_size):
     
     X_feature = np.load('C:/Users/harsh/source/saved/audio_features.npy')
     strings_array = np.load('C:/Users/harsh/source/saved/labels.npy')
-    ''' path='data'
-    X_feature=[]
-    Y_feature=[]
-    for folder in os.listdir(path):
-        directory=os.path.join(path,folder)
-        X, y,z = load_data(directory)
-        names_array=z
-        for j in range(len(X)):
-            X_feature.append(X[j])
-            Y_feature.append(y[j])
-    
-    np.save('C:/Users/harsh/source/saved/audio_features.npy', X_feature)
-    np.save('C:/Users/harsh/source/saved/labels.npy', Y_feature)
-    np.save('C:/Users/harsh/source/saved/names.npy',names_array)'''
+  
     mapping_dict = {"advertisement":0, 
         "drama":1, 
         "entertainment": 2, 
@@ -183,8 +170,7 @@ if __name__ == "__main__":
     early_stopping = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
     history = model.fit(X_train, y_train, validation_data=(X_validation, y_validation), batch_size=32, epochs=15, callbacks=[early_stopping])
     plot_history(history)
-    '''X_train, X_validation, X_test, y_train, y_validation, y_test = prepare_datasets(0.25, 0.2)
-    model=load_model('C:/Users/harsh/source/model/audiomodel.h5')'''
+    
     test_loss, test_acc = model.evaluate(X_test, y_test, verbose=2)
     # Save the model
     # model.save('C:/Users/harsh/source/model/audiomodel.h5')
