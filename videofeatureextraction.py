@@ -87,9 +87,9 @@ for i, video_folder in enumerate(video_folders):
     feat=np.array(feat)
     names=np.array(names)
     y=np.array(y)
-    np.save('/content/drive/MyDrive/CS670_Project/video_features_'+str(val)+'.npy', feat)
-    np.save('/content/drive/MyDrive/CS670_Project/labels_'+str(val)+'.npy', y)
-    np.save('/content/drive/MyDrive/CS670_Project/names_'+str(val)+'.npy', names)
+    np.save('/CS670_Project/video_features_'+str(val)+'.npy', feat)
+    np.save('/CS670_Project/labels_'+str(val)+'.npy', y)
+    np.save('/CS670_Project/names_'+str(val)+'.npy', names)
 
 
 
