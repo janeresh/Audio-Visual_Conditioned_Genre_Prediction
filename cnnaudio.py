@@ -170,7 +170,7 @@ if __name__ == "__main__":
     early_stopping = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
     history = model.fit(X_train, y_train, validation_data=(X_validation, y_validation), batch_size=32, epochs=15, callbacks=[early_stopping])
     plot_history(history)
-    
+    #Loss calculation 
     test_loss, test_acc = model.evaluate(X_test, y_test, verbose=2)
     # Save the model
     # model.save('C:/Users/harsh/source/model/audiomodel.h5')
